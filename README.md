@@ -10,7 +10,7 @@ JSON trip format
 {
     "known travelers": ["List of travelers on any trip; for input verification"],
     "misc. cities visited": [
-        ["location ...", ["travelers ..."]]
+        ["Location", ["Travelers"]]
     ],
     "trips": [
         {
@@ -19,8 +19,8 @@ JSON trip format
             "when": "YYYY-MM",
             "start": "OTIONAL: Where the trip started, if important",
             "where": [
-                "Location visited",
-                "Listing a location more than once to the the route accurate is fine"
+                "Location",
+                "Listing a location more than once to get the route accurate is fine"
             ],
             "end": "OPTIONAL: Where the trip ended, if important"
         }
