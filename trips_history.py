@@ -1,4 +1,34 @@
 #! /usr/bin/env python3.4
+"""
+class TripsHistory:
+    cities: {City}
+    def trips
+    def travelers
+
+class Trip:
+    when: date
+    travelers: {str}
+    start: City
+    where: City
+    end: City
+    def locations
+
+class City:
+    visits: {Trip}
+    def last_visited
+    name: str
+    latlong: [float]
+    def visit_count
+    def visited_by
+    def from_trip(self, name, trip)
+    def from_travels(self, name, travelers)
+
+class GeoJSON:
+    def linestring(self, coordinates, properties=None)
+    def point(self, coordinate, properties=None)
+    def __str__(self)
+    http://geojson.org/geojson-spec.html
+"""
 import collections
 import contextlib
 import json
@@ -66,17 +96,47 @@ class TripsHistory:
 
     def calc_city_colours(self):
         """Map cities to a possible colour based on who has visited."""
+        # XXX
 
-    def _trip_to_linestring(self, trip):
+    @staticmethod
+    def _geojson_feature(type_, coordinates, properties=None):
+        feature = {
+            'type': 'Feature',
+            'geometry': {'type': type_, 'coordinates': coordinates}
+        }
+        if properties is not None:
+            feature['properties'] = properties
+        return feature
+
+    @staticmethod
+    def _trip_to_linestring(trip, properties=None):
         """Converts a trip to a GeoJSON linestring."""
+        return _geojson_feature('LineString', trip, properties)
 
-    def _city_to_point(self, city):
+    @staticmethod
+    def _city_to_point(city, properties=None):
         """Converts a city to a GeoJSON point."""
+        return _geojson_feature('Point', city, properties)
 
     def to_geojson(self):
         """Creates GeoJSON from the trips data."""
-        geojson = {'type': 'FeatureCollection', 'features': []}
+        features = []
+        geojson = {'type': 'FeatureCollection', 'features': features}
+        locations = self._collect_locations()
+        for trip in self.trips_data['trips']:
+            cities = []
+            with contextlib.suppress(KeyError):
+                cities.append(self.latlong_map[trip['start']])
+            features.extend(map(self.latlong_map.__getitem__, trips['where']))
+            with contextlib.suppress(KeyError):
+                cities.append(self.latlong_map[trip['end']])
+        for city in locations:
+            latlong = self.latlong_map['city']
+            features.append(self._city_to_point(latlong))
+            # XXX marker size
+            # XXX marker colour
         # XXX https://help.github.com/articles/mapping-geojson-files-on-github
+        return geojson
 
 
 
