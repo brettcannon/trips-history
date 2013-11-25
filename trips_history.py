@@ -1,34 +1,82 @@
-#! /usr/bin/env python3.4
+#! /usr/bin/env python3
 """
-class TripsHistory:
-    cities: {City}
-    def trips
-    def travelers
-
-class Trip:
-    when: date
-    travelers: {str}
-    start: City
-    where: City
-    end: City
-    def locations
-
-class City:
-    visits: {Trip}
-    def last_visited
-    name: str
-    latlong: [float]
-    def visit_count
-    def visited_by
-    def from_trip(self, name, trip)
-    def from_travels(self, name, travelers)
-
-class GeoJSON:
-    def linestring(self, coordinates, properties=None)
-    def point(self, coordinate, properties=None)
-    def __str__(self)
     http://geojson.org/geojson-spec.html
 """
+import contextlib
+import datetime
+
+
+class City(tuple):
+
+    """A city in the world."""
+
+    def __new__(cls, name):
+        # latlong
+        return tuple.__new__(cls, (name, ))
+
+    def __hash__(self):
+        return hash(self.name.lower())
+
+    def __getitem__(self, index):
+        raise TypeError(repr(self.__class__.__name__) +
+                        ' object is not subscriptable')
+
+    def __eq__(self, other):
+        return self.name.lower() == other.name.lower()
+
+    # __str__
+
+    def __repr__(self):
+        # XXX latlong
+        return '<{!r}>'.format(self.name)
+
+    @property
+    def name(self):
+        return tuple.__getitem__(self, 0)
+
+
+class Trip:
+
+    """A single trip."""
+
+    def __init__(self, title, when, travelers, where, *, start=None, end=None):
+        self.title = title
+        self.when = datetime.date(*map(int, when.split('-')), day=1)
+        self.travelers = frozenset(name.capitalize() for name in travelers)
+        self.where = tuple(where)
+        if start is not None:
+            self.start = start
+        if end is not None:
+            self.end = end
+
+    # __str__
+
+
+class TripsHistory:
+
+    """A collection of various trips."""
+
+    cities = {}
+    trips = set()
+
+    def city(self, name):
+        """Finds the canonical city representation."""
+        try:
+            return self.cities[name.lower()]
+        except KeyError:
+            city = City(name)
+            cities[name.lower()] = city
+            return city
+
+
+    def add_trip(self, title, when, travelers, where, *, start=None, end=None):
+        """Records a trip."""
+        pass
+
+    # __str__
+
+
+#############################################
 import collections
 import contextlib
 import json
