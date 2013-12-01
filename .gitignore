@@ -2,4 +2,9 @@
 .idea
 *.iml
 
+# sbt
+project
+target
+.scala
+
 trips.json
