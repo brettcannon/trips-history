@@ -1,5 +1,17 @@
+/*
+  name
+  latlong
+*/
 class City {}
 
+/*
+  title
+  when
+  travelers
+  where
+  start
+  end
+*/
 class Trip {}
 
 object TripsHistory {
