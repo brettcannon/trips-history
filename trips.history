@@ -1,0 +1,517 @@
+{
+    "known travellers": [
+        "Andrea",
+        "Brett",
+        "Channing",
+        "Earle",
+        "Eric",
+        "Fiona",
+        "Henry",
+        "Jer",
+        "RB",
+        "RC",
+        "Sandy",
+        "Todd",
+        "Vanessa"
+    ],
+    "misc. cities visited": [
+        ["Las Vegas, NV, US", ["Brett", "Todd"]],
+        ["Lake Tahoe, CA, US", ["Brett", "Channing", "Henry", "Jer", "Sandy"]],
+        ["La Jolla, CA, US", ["Brett"]],
+        ["Yosemite, CA, US", ["Brett"]],
+        ["Kelowna, BC, CA", ["Andrea", "Earle", "Fiona"]]
+    ],
+
+    "trips": [
+        {
+            "title": "Xmas 2013",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-12",
+            "where": ["Meridian, ID, US"]
+        },
+        {
+            "title": "Googleplex Visit 2013",
+            "travellers": ["Brett"],
+            "when": "2013-10",
+            "where": ["Mountain View, CA, US"]
+        },
+        {
+            "title": "PyCon CA 2013",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-08",
+            "start": "Guelph, ON, CA",
+            "where": ["Toronto, ON, CA"]
+        },
+        {
+            "title": "Visit Alex",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-08",
+            "start": "Guelph, ON, CA",
+            "where": ["Ann Arbor, MI, US"]
+        },
+        {
+            "title": "Visit Jer",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-06",
+            "where": ["New York, NY, US"]
+        },
+        {
+            "title": "Visit Friends 2013",
+            "travellers": ["Andrea"],
+            "when": "2013-06",
+            "where": ["Vancouver, BC, CA"]
+        },
+        {
+            "title": "Ottawa for Andrea's birthday",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-05",
+            "start": "Guelph, ON, CA",
+            "where": [
+                "Ottawa, ON, CA"
+            ]
+        },
+        {
+            "title": "Google WAT Off-Site 2013",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-05",
+            "where": ["Punta Cana, DO"]
+        },
+        {
+            "title": "PyCon 2013",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2013-03",
+            "where": [
+                "Mountain View, CA, US",
+                "San Francisco, CA, US"
+            ]
+        },
+        {
+            "title": "Googleplex Visit 2013",
+            "travellers": ["Brett"],
+            "when": "2013-01",
+            "where": ["Mountain View, CA, US"]
+        },
+        {
+            "title": "Xmas 2012",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-12",
+            "where": [
+                "Vancouver, BC, CA",
+                "Langley, WA, US"
+            ]
+        },
+        {
+            "title": "PyCon Argentina 2012",
+            "travellers": ["Brett"],
+            "when": "2012-11",
+            "where": ["Buenos Aires, AR"]
+        },
+        {
+            "title": "Visit Will & Lauren",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-10",
+            "where": ["Chicago, IL, US"]
+        },
+        {
+            "title": "Canada Day Weekend 2012: Owen Sound",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-07",
+            "start": "Guelph, ON, CA",
+            "where": ["Owen Sound, ON, CA"]
+        },
+        {
+            "title": "Canada Day Weekend 2012: Niagra",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-07",
+            "start": "Guelph, ON, CA",
+            "where": ["Niagara-on-the-Lake, ON, CA"]
+        },
+        {
+            "title": "East coast of Canada",
+            "travellers": ["Andrea", "Brett", "Earle", "Fiona"],
+            "when": "2012-06",
+            "start": "Guelph, ON, CA",
+            "where": [
+                "Montréal, QC, CA",
+                "Québec, QC, CA",
+                "Fredericton, NB, CA",
+                "Sackville, NB, CA",
+                "Halifax, NS, CA",
+                "Sackville, NB, CA",
+                "Charlottetown, PE, CA"
+            ]
+        },
+        {
+            "title": "Kingston & Ottawa 2012",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-05",
+            "start": "Guelph, ON, CA",
+            "where": [
+                "Kingston, ON, CA",
+                "Ottawa, ON, CA"
+            ]
+        },
+        {
+            "title": "Disneyland 2012 / PyCon 2012",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-03",
+            "where": [
+                "Anaheim, CA, US",
+                "Mountain View, CA, US",
+                "San Francisco, CA, US"
+            ]
+        },
+        {
+            "title": "Niagara Falls",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2012-01",
+            "start": "Guelph, ON, CA",
+            "where": ["Niagara Falls, ON, CA"]
+        },
+        {
+            "title": "Xmas 2011",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2011-12",
+            "where": [
+                "Montclair, NJ, US",
+                "New York, NY, US"
+            ]
+        },
+        {
+            "title": "Visit Mom",
+            "travellers": ["Brett"],
+            "when": "2011-11",
+            "where": ["Roseville, CA, US"]
+        },
+        {
+            "title": "Visit Andrea in TO",
+            "travellers": ["Brett"],
+            "when": "2011-09",
+            "where": ["Toronto, ON, CA"]
+        },
+        {
+            "title": "Google App Engine Off-Site",
+            "travellers": ["Brett"],
+            "when": "2011-08",
+            "where": ["Portland, OR, US"]
+        },
+        {
+            "title": "Visit Andrea in Vancouver",
+            "travellers": ["Brett"],
+            "when": "2011-07",
+            "where": ["Vancouver, BC, CA"]
+        },
+        {
+            "title": "Honeymoon",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2011-07",
+            "where": ["Bowen Island, BC, CA"]
+        },
+        {
+            "title": "Visit Roseville",
+            "travellers": ["Brett"],
+            "when": "2011-06",
+            "where": ["Roseville, CA, US"]
+        },
+        {
+            "title": "Visit Andrea in Vancouver",
+            "travellers": ["Brett"],
+            "when": "2011-06",
+            "where": ["Vancouver, BC, CA"]
+        },
+        {
+            "title": "Immigration Paperwork",
+            "travellers": ["Brett"],
+            "when": "2011-05",
+            "where": ["Vancouver, BC, CA"]
+        },
+        {
+            "title": "Starting at Google",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2011-05",
+            "where": [
+                "Roseville, CA, US",
+                "Mountain View, CA, US",
+                "San Francisco, CA, US",
+                "Berkeley, CA, US",
+                "Mountain View, CA, US",
+                "Monterey, CA, US"
+            ]
+        },
+        {
+            "title": "Jer's Wedding",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2011-04",
+            "where": ["Los Angeles, CA, US"]
+        },
+        {
+            "title": "Visit Langley",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2011-04",
+            "where": ["Langley, WA, US"]
+        },
+        {
+            "title": "PyCon 2011",
+            "travellers": ["Brett"],
+            "when": "2011-03",
+            "where": ["Atlanta, GA, US"]
+        },
+        {
+            "title": "New Years 2011",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2011-01",
+            "start": "Vancouver, BC, CA",
+            "where": ["Seattle, WA, US"]
+        },
+        {
+            "title": "US Thanksgiving 2010",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2010-11",
+            "where": ["Langley, WA, US"]
+        },
+        {
+            "title": "Victoria Day 2010",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2010-08",
+            "start": "Vancouver, BC, CA",
+            "where": ["Victoria, BC, CA"]
+        },
+        {
+            "title": "Scotland",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2010-07",
+            "start": "Manchester, UK",
+            "where": [
+                "Lancaster, UK",
+                "Glasgow, UK",
+                "Stirling, UK",
+                "Glasgow, UK",
+                "Edinburgh, UK"
+            ]
+        },
+        {
+            "title": "EuroPython 2010",
+            "travellers": ["Brett"],
+            "when": "2010-07",
+            "where": ["Birmingham, UK"],
+            "end": "Manchester, UK"
+        },
+        {
+            "title": "Google Interview",
+            "travellers": ["Brett"],
+            "when": "2010-06",
+            "where": ["Mountain View, CA, US"]
+        },
+        {
+            "title": "European Summer Exchange",
+            "travellers": ["Andrea"],
+            "when": "2010-06",
+            "where": [
+                "Manchester, UK",
+                "Liverpool, UK",
+                "Manchester, UK",
+                "Prague, CZ",
+                "Barcelona, ES",
+                "Grenoble, FR",
+                "Geneva, CH",
+                "Grenoble, FR",
+                "Paris, FR",
+                "London, UK"
+            ],
+            "end": "Manchester, UK"
+        },
+        {
+            "title": "Visit Langley",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2010-06",
+            "where": ["Langley, WA, US"]
+        },
+        {
+            "title": "Show Andrea SF",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2010-05",
+            "where": [
+                "San Francisco, CA, US",
+                "Santa Cruz, CA, US"
+            ]
+        },
+        {
+            "title": "WWW 2010",
+            "travellers": ["Brett", "Eric"],
+            "when": "2010-04",
+            "where": ["Raleigh, NC, US"]
+        },
+        {
+            "title": "Visit Jer & Jackie",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2010-04",
+            "where": ["Seattle, WA, US"]
+        },
+        {
+            "title": "PyCon 2010",
+            "travellers": ["Brett"],
+            "when": "2010-03",
+            "where": ["Atlanta, GA, US"]
+        },
+        {
+            "title": "Cuba",
+            "travellers": ["Andrea", "Fiona"],
+            "when": "2010-02",
+            "where": ["Havana, CU"]
+        },
+        {
+            "title": "Xmas 2009",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2009-12",
+            "where": ["Roseville, CA, US"]
+        },
+        {
+            "title": "US Thanksgiving 2009",
+            "travellers": ["Brett"],
+            "when": "2009-11",
+            "where": ["Langley, WA, US"]
+        },
+        {
+            "title": "Victoria Getaway",
+            "travellers": ["Andrea", "Brett"],
+            "when": "2009-11",
+            "where": ["Victoria, BC, CA"]
+        },
+        {
+            "title": "Visit Langley",
+            "travellers": ["Brett"],
+            "when": "2009-10",
+            "where": ["Langley, WA, US"]
+        },
+        {
+            "title": "Las Vegas with Vanessa",
+            "travellers": ["Andrea", "Vanessa"],
+            "when": "2009-09",
+            "where": ["Las Vegas, NV, US"]
+        },
+        {
+            "title": "Boise 2009",
+            "travellers": ["Brett"],
+            "when": "2009-08",
+            "where": ["Meridian, ID, US"]
+        },
+        {
+            "title": "PyCon 2009",
+            "travellers": ["Brett"],
+            "when": "2009-04",
+            "where": [
+                "Rosemont, IL, US",
+                "Chicago, IL, US"
+            ]
+        },
+        {
+            "title": "AOSD 2009",
+            "travellers": ["Brett", "Eric"],
+            "when": "2009-03",
+            "where": ["Charlottesville, VA, US"]
+        },
+        {
+            "title": "SOUPS 2008",
+            "travellers": ["Brett"],
+            "when": "2008-07",
+            "where": ["Pittsburgh, PA, US"]
+        },
+        {
+            "title": "First Japan Trip",
+            "travellers": ["Andrea"],
+            "when": "2008-05",
+            "where": [
+                "Tokyo, JP",
+                "Annaka, JP",
+                "Tokyo, JP",
+                "Kyoto, JP",
+                "Nara, JP",
+                "Osaka, JP",
+                "Hiroshima, JP"
+            ]
+        },
+        {
+            "title": "AOSD 2008",
+            "travellers": ["Brett"],
+            "when": "2008-04",
+            "where": [
+                "Brussels, BE",
+                "Ghent, BE"
+            ]
+        },
+        {
+            "title": "PyCon 2008",
+            "travellers": ["Brett"],
+            "when": "2008-03",
+            "where": [
+                "Rosemont, IL, US",
+                "Chicago, IL, US"
+            ]
+        },
+        {
+            "title": "PyCon 2007",
+            "travellers": ["Brett"],
+            "when": "2007-03",
+            "where": ["Addison, TX, US"]
+        },
+        {
+            "title": "PyCon 2006",
+            "travellers": ["Brett"],
+            "when": "2006-03",
+            "where": ["Addison, TX, US"]
+        },
+        {
+            "title": "Visit Alberta",
+            "travellers": ["Andrea", "Fiona"],
+            "when": "2005-07",
+            "where": [
+                "Calgary, AB, CA",
+                "Edmonton, AB, CA"
+            ]
+        },
+        {
+            "title": "PyCon 2005",
+            "travellers": ["Brett"],
+            "when": "2005-03",
+            "where": ["Washington, DC, US"]
+        },
+        {
+            "title": "PyCon 2004",
+            "travellers": ["Brett"],
+            "when": "2004-03",
+            "where": ["Washington, DC, US"]
+        },
+        {
+            "title": "Todd's & Whitney's Wedding",
+            "travellers": ["Brett", "Leslie", "Steve"],
+            "when": "2003-07",
+            "where": ["Mammoth Lakes, CA, US"]
+        },
+        {
+            "title": "PyCon 2003",
+            "travellers": ["Brett"],
+            "when": "2003-03",
+            "where": ["Washington, DC, US"]
+        },
+        {
+            "title": "UK After Graduation",
+            "travellers" :["Brett", "RC"],
+            "when": "2002-11",
+            "where": [
+                "London, UK",
+                "Brighton, UK",
+                "London, UK",
+                "York, UK",
+                "Edinburgh, UK",
+                "London, UK",
+                "Oxford, UK"
+            ]
+        },
+        {
+            "title": "NeoCon in Chicago",
+            "travellers": ["Brett", "RB", "RC"],
+            "when": "2002-06",
+            "where": ["Chicago, IL, US"]
+        }
+    ]
+}

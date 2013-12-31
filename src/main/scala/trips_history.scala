@@ -1,6 +1,5 @@
 package ca.yvrsfo.tripshistory
 
-import java.util.{Calendar, GregorianCalendar}
 import scala.io.Source
 import scala.util.parsing.json.{JSON, JSONArray, JSONObject}
 
@@ -118,9 +117,7 @@ object Nowhere extends City("Nowhere") {
     def latlong = (0.0, 0.0)
 }
 
-// XXX: concrete implementation of City using some online service to get latlong
-
-class Trip(val title: String, val when: Calendar, val travellers: Set[String],
+class Trip(val title: String, val when: String, val travellers: Set[String],
            val where: List[City], val start: City = Nowhere,
            val end: City = Nowhere) {
 
@@ -139,9 +136,12 @@ class Trip(val title: String, val when: Calendar, val travellers: Set[String],
         val coordsArray = new JSONArray(coords map (new JSONArray(_)))
         val geometry = new JSONObject(
                 Map("type" -> "LineString", "coordinates" -> coordsArray))
-        val allProperties = new JSONObject(properties + ("name" -> title))
-        // TODO: travellers
-        // TODO: when
+        val travellersArray = new JSONArray(travellers.toList)
+        val allProperties = new JSONObject(
+                properties +
+                ("name" -> title) +
+                ("travellers" -> travellersArray) +
+                ("when" -> when))
         new JSONObject(Map("type" -> "Feature", "geometry" -> geometry,
                            "properties" -> allProperties))
     }
@@ -171,7 +171,7 @@ class TripsHistory {
     def parseTrip(jsonTrip: Map[String, Any]): Trip = {
         val title = jsonTrip("title").asInstanceOf[String]
         val travellers = jsonArrayToStringList(jsonTrip("travellers")).toSet
-        // TODO: when
+        val when = jsonTrip("when").asInstanceOf[String]
         val start = {
             if (jsonTrip contains "start")
                 findCity(jsonTrip("start").asInstanceOf[String])
@@ -186,7 +186,7 @@ class TripsHistory {
         }
         val where = for (name <- jsonArrayToStringList(jsonTrip("where")))
                 yield findCity(name)
-        new Trip(title, new GregorianCalendar(), travellers, where, start, end)
+        new Trip(title, when, travellers, where, start, end)
     }
 
     def toGeoJSON(trips: Seq[Trip]): JSONObject = {

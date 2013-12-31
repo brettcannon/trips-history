@@ -2,7 +2,6 @@ package ca.yvrsfo.tripshistory
 
 import org.scalatest._
 
-import java.util.GregorianCalendar
 import scala.util.parsing.json.{JSON, JSONArray, JSONObject}
 
 class CitySpec extends FlatSpec with Matchers {
@@ -58,7 +57,7 @@ class TripSpec extends FlatSpec with Matchers {
     }
 
     "Trip" should ".toGeoJSON" in {
-        val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
+        val trip = new Trip("Some Trip", "2013-12",
                             Set("Andrea", "Brett"), List(Nowhere))
         val jsonMap = trip.toGeoJSON.obj
         jsonMap should contain ("type" -> "Feature")
@@ -80,7 +79,7 @@ class TripSpec extends FlatSpec with Matchers {
     }
 
     it should ".toGeoJSON(start)" in {
-        val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
+        val trip = new Trip("Some Trip", "2013-12",
                             Set("Andrea", "Brett"), List(Nowhere), start=start)
         val coords = trip.toGeoJSON.obj("geometry").asInstanceOf[JSONObject].obj("coordinates").asInstanceOf[JSONArray].list
         val coords1 = coords(0).asInstanceOf[JSONArray].list
@@ -90,7 +89,7 @@ class TripSpec extends FlatSpec with Matchers {
     }
 
     it should ".toGeoJSON(end)" in {
-        val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
+        val trip = new Trip("Some Trip", "2013-12",
                             Set("Andrea", "Brett"), List(Nowhere), end=end)
         val coords = trip.toGeoJSON.obj("geometry").asInstanceOf[JSONObject].obj("coordinates").asInstanceOf[JSONArray].list
         val coords1 = coords(0).asInstanceOf[JSONArray].list
@@ -100,7 +99,7 @@ class TripSpec extends FlatSpec with Matchers {
     }
 
     it should ".toGeoJSON(start, end)" in {
-        val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
+        val trip = new Trip("Some Trip", "2012-12",
                             Set("Andrea", "Brett"), List(Nowhere), start, end)
         val coords = trip.toGeoJSON.obj("geometry").asInstanceOf[JSONObject].obj("coordinates").asInstanceOf[JSONArray].list
         val coords1 = coords(0).asInstanceOf[JSONArray].list
@@ -112,7 +111,7 @@ class TripSpec extends FlatSpec with Matchers {
     }
 
     it should ".toGeoJSON(properties)" in {
-        val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
+        val trip = new Trip("Some Trip", "2013-12",
                             Set("Andrea", "Brett"), List(Nowhere))
         val extraProps = Map("key" -> "value")
         val props = trip.toGeoJSON(extraProps).obj("properties").asInstanceOf[JSONObject].obj
@@ -134,7 +133,8 @@ class TripsHistorySpec extends FlatSpec with Matchers {
     val defaultTrip = Map(
             "title" -> title,
             "travellers" -> travellers.toList,
-            "where" -> whereTo)
+            "where" -> whereTo,
+            "when" -> "2013-12")
 
     "TripsHistory" should ".parseTrip() w/o start, end" in {
         val trip = new DumbTripsHistory().parseTrip(defaultTrip)
