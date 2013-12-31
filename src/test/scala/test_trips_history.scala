@@ -11,7 +11,7 @@ class CitySpec extends FlatSpec with Matchers {
     }
 
     it should ".latlong" in {
-        Nowhere.latlong should be ("0.0", "0.0")
+        Nowhere.latlong should be (0.0, 0.0)
     }
 
     it should ".toGeoJSON" in {
@@ -50,11 +50,11 @@ class CitySpec extends FlatSpec with Matchers {
 
 class TripSpec extends FlatSpec with Matchers {
     val start = new City("Start") {
-        def latlong = ("1", "0")
+        def latlong = (1, 0)
     }
 
     val end = new City("End") {
-        def latlong = ("0", "1")
+        def latlong = (0, 1)
     }
 
     "Trip" should ".toGeoJSON" in {
@@ -83,30 +83,32 @@ class TripSpec extends FlatSpec with Matchers {
         val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
                             Set("Andrea", "Brett"), List(Nowhere), start=start)
         val coords = trip.toGeoJSON.obj("geometry").asInstanceOf[JSONObject].obj("coordinates").asInstanceOf[JSONArray].list
-        coords should be (List(
-                List(start.latlong._1, start.latlong._2),
-                List(Nowhere.latlong._1, Nowhere.latlong._2)))
+        val coords1 = coords(0).asInstanceOf[JSONArray].list
+        val coords2 = coords(1).asInstanceOf[JSONArray].list
+        coords1 should be (List(start.latlong._1, start.latlong._2))
+        coords2 should be (List(Nowhere.latlong._1, Nowhere.latlong._2))
     }
 
     it should ".toGeoJSON(end)" in {
         val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
                             Set("Andrea", "Brett"), List(Nowhere), end=end)
         val coords = trip.toGeoJSON.obj("geometry").asInstanceOf[JSONObject].obj("coordinates").asInstanceOf[JSONArray].list
-        coords should be (List(
-                List(Nowhere.latlong._1, Nowhere.latlong._2),
-                List(end.latlong._1, end.latlong._2)))
-
+        val coords1 = coords(0).asInstanceOf[JSONArray].list
+        val coords2 = coords(1).asInstanceOf[JSONArray].list
+        coords1 should be (List(Nowhere.latlong._1, Nowhere.latlong._2))
+        coords2 should be (List(end.latlong._1, end.latlong._2))
     }
 
     it should ".toGeoJSON(start, end)" in {
         val trip = new Trip("Some Trip", new GregorianCalendar(2013, 12, 14),
                             Set("Andrea", "Brett"), List(Nowhere), start, end)
         val coords = trip.toGeoJSON.obj("geometry").asInstanceOf[JSONObject].obj("coordinates").asInstanceOf[JSONArray].list
-        coords should be (List(
-                List(start.latlong._1, start.latlong._2),
-                List(Nowhere.latlong._1, Nowhere.latlong._2),
-                List(end.latlong._1, end.latlong._2)))
-
+        val coords1 = coords(0).asInstanceOf[JSONArray].list
+        val coords2 = coords(1).asInstanceOf[JSONArray].list
+        val coords3 = coords(2).asInstanceOf[JSONArray].list
+        coords1 should be (List(start.latlong._1, start.latlong._2))
+        coords2 should be (List(Nowhere.latlong._1, Nowhere.latlong._2))
+        coords3 should be (List(end.latlong._1, end.latlong._2))
     }
 
     it should ".toGeoJSON(properties)" in {
