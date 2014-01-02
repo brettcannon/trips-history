@@ -1,3 +1,9 @@
+"""Various functions to help cleanup/tweak 'properties' metadata.
+
+Edit the fixup() function to call which other function you wish to use to
+translate the JSON data.
+
+"""
 import json
 
 
