@@ -1,7 +1,3 @@
-"""
-// LineString
-//   # Make sure at least 2 points
-"""
 import json
 
 
