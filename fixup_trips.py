@@ -8,7 +8,34 @@ import json
 
 
 def fixup(points, linestrings):
-    return valid_linestrings(points, linestrings)
+    return marker_size(points, linestrings)
+
+
+def marker_size(points, linestrings):
+    for pt in points:
+        size = "small"
+        trips = pt['properties']['trips']
+        if len(trips) >= 2:
+            size = "medium"
+        #elif len(trips) >= 3:
+        #    size = "large"
+        pt['properties']['marker-size'] = size
+    return points, linestrings
+
+
+def add_colours(points, linestrings):
+    for pt in points:
+        visitors = pt['properties']['visited by']
+        if "Andrea" in visitors and "Brett" in visitors:
+            colour = '00EE00'
+        elif "Andrea" in visitors:
+            colour = 'EEEE00'
+        elif "Brett" in visitors:
+            colour = '0000EE'
+        else:
+            colour = '000000'
+        pt['properties']['marker-color'] = colour
+    return points, linestrings
 
 
 def valid_linestrings(points, linestrings):
