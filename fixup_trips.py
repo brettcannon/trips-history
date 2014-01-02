@@ -13,12 +13,12 @@ def fixup(points, linestrings):
 
 def marker_size(points, linestrings):
     for pt in points:
-        size = "small"
+        size = 'small'
         trips = pt['properties']['trips']
         if len(trips) >= 2:
-            size = "medium"
-        #elif len(trips) >= 3:
-        #    size = "large"
+            size = 'medium'
+        elif trips['properties'].get('marker-symbol') == 'building':
+            size = 'large'
         pt['properties']['marker-size'] = size
     return points, linestrings
 
