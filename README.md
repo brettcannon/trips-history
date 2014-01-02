@@ -1,11 +1,15 @@
-Trips History
-=============
+# Trips History
+Various bits of code to help maintain a [GeoJSON](http://geojson.org/) record of one's trips.
 
-Convert from a trip-oriented JSON format for easy inputting to [GeoJSON](http://geojson.org/) for easy mapping.
+## Fixup/tweak GeoJSON `properties` metadata
+`fixup_trips.py` helps with changing GeoJSON 'properties' metadata. It's mostly
+meant to clean up the output from the trips DSL (mentioned below).
 
+## Convert from a trips JSON DSL to GeoJSON
+The Scala code for `trips_history.scala` will take a JSON file using a DSL format
+and emit (roughly) GeoJSON.
 
-JSON trip format
-----------------
+### JSON trip format
 ```json
 {
     "known travelers": ["List of travelers on any trip; for input verification"],
