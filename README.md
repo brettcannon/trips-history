@@ -1,5 +1,7 @@
 # Trips History
 Various bits of code to help maintain a [GeoJSON](http://geojson.org/) record of one's trips.
+All part of a [blog
+post](http://nothingbutsnark.svbtle.com/my-impressions-of-scala).
 
 ## Fixup/tweak GeoJSON `properties` metadata
 `fixup_trips.py` helps with changing GeoJSON 'properties' metadata. It's mostly
