@@ -8,3 +8,5 @@ target
 .scala
 
 trips.json
+
+*.pyc
