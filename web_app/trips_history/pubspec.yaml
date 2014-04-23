@@ -1,0 +1,8 @@
+name: trips_history
+author: Brett Cannon
+description: Manage GeoJSON data as specified around personal trips.
+homepage: https://github.com/brettcannon/trips-history
+dependencies:
+  angular: '>=0.10.0'
+  browser: '>=0.10.0+2'
+  unittest: '>=0.10.1+2'
