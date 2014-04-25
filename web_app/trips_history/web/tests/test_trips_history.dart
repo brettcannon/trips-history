@@ -33,9 +33,27 @@ void main() {
       expect(new Person('I', '#AABBCC').colour, '#AABBCC');
       expect(new Person('J', 'AABBCC').colour, 'AABBCC');
     });
+
+    test('sorting', () {
+      var person1 = new Person('Andrea', '00A');
+      var person2 = new Person('Brett', 'A00');
+      var got = [person2, person1];
+      got.sort();
+
+      expect(got, [person1, person2]);
+    });
   });
 
   group('City', () {
+    test('sorting', () {
+      var city1 = new City('Vancouver', 'CA');
+      var city2 = new City('San Francisco', 'US');
+      var got = [city2, city1];
+      got.sort();
+
+      expect(got, [city1, city2]);
+    });
+
     test('.fromJson()', () {
       var data = basicCity();
       data['properties']['visited by'] = 'Andrea';
@@ -91,6 +109,18 @@ void main() {
   });
 
   group('Trip', () {
+    test('sorting', () {
+      var trip1 = new Trip();
+      trip1.when = new DateTime(2014, 4, 23);
+      var trip2 = new Trip();
+      trip2.when = new DateTime(2014, 4, 24);
+      var want = [trip1, trip2];
+      var got = [trip2, trip1];
+      got.sort();
+
+      expect(got, want);
+    });
+
     test('.fromJson()', () {
       var people = {'Andrea': new Person('Andrea', 'ace'),
                     'Brett': new Person('Brett', 'eca')};
@@ -219,11 +249,31 @@ void main() {
       });
 
       test('cities', () {
-        // TODO
+        var tripsHistory = new TripsHistory();
+        var city1 = new City('Vancouver', 'CA');
+        var city2 = new City('San Francisco', 'US');
+        tripsHistory.cities['Vancouver, CA'] = city1;
+        tripsHistory.cities['San Francisco, US'] = city2;
+
+        var json = tripsHistory.toJson();
+        expect(json['features'].length, 2);
+        expect(json['features'][0], city1);
+        expect(json['features'][1], city2);
       });
 
       test('trips', () {
-        // TODO
+        var tripsHistory = new TripsHistory();
+        var trip1 = new Trip();
+        trip1.when = new DateTime(2014, 4, 23);
+        var trip2 = new Trip();
+        trip2.when = new DateTime(2014, 4, 24);
+        tripsHistory.trips['trip 1'] = trip1;
+        tripsHistory.trips['trip 2'] = trip2;
+
+        var json = tripsHistory.toJson();
+        expect(json['features'].length, 2);
+        expect(json['features'][0], trip1);
+        expect(json['features'][1], trip2);
       });
     });
   });

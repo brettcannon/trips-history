@@ -16,7 +16,7 @@ library trips_history;
  * (e.g., Andrea & Brett), specify the [name] by listing all
  * of the people in a format the displays nicely (e.g. `Andrea & Brett`).
  */
-class Person {
+class Person implements Comparable {
   String name;
   String _colour;
 
@@ -24,6 +24,13 @@ class Person {
   Person(String name, String colour) {
     this.name = name;
     this.colour = colour;
+  }
+
+  /**
+   * Sort based on name.
+   */
+  int compareTo(Person other) {
+    return name.compareTo(other.name);
   }
 
   String get colour => _colour;
@@ -63,7 +70,7 @@ class Person {
 /**
  * A city that has been visited.
  */
-class City {
+class City implements Comparable {
   String locality;
   String country;
   String name;
@@ -77,6 +84,18 @@ class City {
        {this.longitude, this.latitude, this.visitedBy: null,
         this.livedHere: false}) {
     this.name = this.locality + ', ' + this.country;
+  }
+
+  /**
+   * Sort cities by country, then city name.
+   */
+  int compareTo(City other) {
+    if (country != other.country) {
+      return country.compareTo(other.country);
+    } else if (locality != other.locality) {
+      return locality.compareTo(other.locality);
+    }
+    return 0;
   }
 
   /**
@@ -107,13 +126,13 @@ class City {
       throw new ArgumentError('Point is lacking a "description" property');
     }
     name = properties['description'];
-    var name_parts = name.split(',').map((e) => e.trim()).toList();
-    if (name_parts.length != 2) {
+    var nameParts = name.split(',').map((e) => e.trim()).toList();
+    if (nameParts.length != 2) {
       throw new ArgumentError(
           'name should be in the form of "<locality>, <country>"');
     }
-    locality = name_parts[0];
-    country = name_parts[1].toUpperCase();
+    locality = nameParts[0];
+    country = nameParts[1].toUpperCase();
     if (country.length != 2) {
       throw new ArgumentError('country should be in ISO 3166-1 alpha-2 format');
     }
@@ -161,7 +180,7 @@ class City {
 /**
  * A single trip.
  */
-class Trip {
+class Trip implements Comparable {
   String description;
   String name;
   DateTime when;
@@ -170,12 +189,16 @@ class Trip {
 
   Trip() {}
 
-  @override
-  int get hashCode => description.hashCode;
-
-  @override
-  bool operator ==(other) {
-    return other is Trip && description == other.description;
+  /**
+   * Sort trips by their date, then by their name.
+   */
+  int compareTo(Trip other) {
+    if (when != other.when){
+      return when.compareTo(other.when);
+    } else if (name != other.name){
+      return name.compareTo(other.name);
+    }
+    return 0;
   }
 
   /**
@@ -198,13 +221,13 @@ class Trip {
     }
     description = properties['description'];
 
-    var name_parts = description.split(':').map((e) => e.trim()).toList();
-    if (name_parts.length != 2) {
+    var nameParts = description.split(':').map((e) => e.trim()).toList();
+    if (nameParts.length != 2) {
       throw new ArgumentError('Description "$name" malformed');
     }
-    name = name_parts[0];
-    var date_parts = name_parts[1].split('-').map((e) => int.parse(e)).toList();
-    when = new DateTime(date_parts[0], date_parts[1]);
+    name = nameParts[0];
+    var dateParts = nameParts[1].split('-').map((e) => int.parse(e)).toList();
+    when = new DateTime(dateParts[0], dateParts[1]);
 
     who = people[properties['visited by']];
 
@@ -312,14 +335,20 @@ class TripsHistory {
 
   Map toJson() {
     var data = {'type': 'FeatureCollection', 'geometry': {},
-                'properties': {'people': {}}};
+                'properties': {'people': {}}, 'features': []};
 
-    people.forEach((_, person) {
+    var sortedPeople = people.values.toList();
+    sortedPeople.sort();
+    sortedPeople.forEach((person) {
       data['properties']['people'][person.name] = person.colour;
     });
 
-    // TODO: cities
-    // TODO: trips
+    var sortedCities = cities.values.toList();
+    sortedCities.sort();
+    data['features'].addAll(sortedCities);
+    var sortedTrips = trips.values.toList();
+    sortedTrips.sort();
+    data['features'].addAll(sortedTrips);
 
     return data;
   }
