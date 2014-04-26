@@ -6,3 +6,5 @@ dependencies:
   angular: '>=0.10.0'
   browser: '>=0.10.0+2'
   unittest: '>=0.10.1+2'
+transformers:
+- angular

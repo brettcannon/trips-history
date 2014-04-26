@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app>
   <head>
     <meta charset="utf-8">
     <title>Trips history</title>
   </head>
   <body>
-
-
-    <script type="application/dart" src="trips_history.dart"></script>
+    <!-- XXX start using Bootstrap -->
+    <div trips-history>
+      <!-- XXX Person
+        - Validate inputs (including checking for dupes)
+        - Edit a person who already exists
+        - Prevent deletion if the person is still referenced by a trip
+      -->
+      <form>
+        <input type=text placeholder="Person's name" ng-model="ctrl.personName">
+        <input type=text placeholder="Colour (in hex)" ng-model="ctrl.personColour">
+        <button value="add" ng-click="ctrl.addPerson()">Add</button>
+      </form>
+      <ul ng-repeat="person in ctrl.people | orderBy:''">
+        <li style="color: {{person.colour}}">{{person.name}}
+      </ul>
+      <!-- XXX City
+        - Add a city
+        - Validate inputs (including checking for dupes)
+      -->
+      <!-- XXX Trip
+        - Add a trip (limit travelers to people, same for city)
+        - Try <input type=month>
+      -->
+    </div>
+    <script src="packages/shadow_dom/shadow_dom.min.js"></script>
+    <script type="application/dart" src="trips_ui.dart"></script>
     <script src="packages/browser/dart.js"></script>
   </body>
 </html>
