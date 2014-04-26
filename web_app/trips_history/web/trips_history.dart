@@ -33,9 +33,8 @@ class Person implements Comparable {
     return name.compareTo(other.name);
   }
 
-  String get colour => _colour;
   /**
-   * Specify the colour to represnt the person.
+   * Validate the colour to represent the person.
    *
    * The rules for acceptable values are:
    *
@@ -43,25 +42,42 @@ class Person implements Comparable {
    * 2. Digits are hexidecimal (upper or lowercase)
    * 3. Either 3 or 6 digits (sans `#`)
    */
-  set colour(String colour) {
+  void _validateColour(String colour) {
     var shortLength = 3;
-        var longLength = 6;
-        if (colour.startsWith('#')) {
-          shortLength++;
-          longLength++;
-        }
-        if (colour.length != shortLength && colour.length != longLength) {
-          throw new ArgumentError(
-              'colour should be 3 or 6 hex digits longs (not including hash');
-        }
+    var longLength = 6;
+    if (colour.startsWith('#')) {
+       shortLength++;
+       longLength++;
+    }
+    if (colour.length != shortLength && colour.length != longLength) {
+       throw new ArgumentError(
+           'colour should be 3 or 6 hex digits longs (not including hash');
+    }
 
-        var hexRegExp = new RegExp('#?[A-F0-9]+');
-        var matched = hexRegExp.stringMatch(colour.toUpperCase());
-        if (colour.toUpperCase() != matched) {
-          throw new ArgumentError('colour must be a hex colour, not ${colour}');
-        }
+    var hexRegExp = new RegExp('#?[A-F0-9]+');
+    var matched = hexRegExp.stringMatch(colour.toUpperCase());
+    if (colour.toUpperCase() != matched) {
+      throw new ArgumentError('colour must be a hex colour, not ${colour}');
+    }
+  }
 
-        _colour = colour;
+  String _formatColour(String colour) {
+    if (!colour.startsWith('#')) {
+      colour = '#' + colour;
+    }
+
+    if (colour.length == 4) {
+      colour = '#' + colour[1]*2 + colour[2]*2 + colour[3]*2;
+    }
+
+    return colour.toUpperCase();
+  }
+
+  String get colour => _colour;
+
+  set colour(String colour) {
+    _validateColour(colour);
+    _colour = _formatColour(colour);
   }
 
   // JSON convertion handled by [TripsHistory.toJSON].

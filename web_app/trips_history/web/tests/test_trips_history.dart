@@ -28,10 +28,10 @@ void main() {
       expect(() => new Person('F', 'efg'), throwsArgumentError);
 
       // No reformatting of the colour.
-      expect(new Person('G', '#ABC').colour, '#ABC');
-      expect(new Person('H', 'ABC').colour, 'ABC');
+      expect(new Person('G', '#ABC').colour, '#AABBCC');
+      expect(new Person('H', 'ABC').colour, '#AABBCC');
       expect(new Person('I', '#AABBCC').colour, '#AABBCC');
-      expect(new Person('J', 'AABBCC').colour, 'AABBCC');
+      expect(new Person('J', 'AABBCC').colour, '#AABBCC');
     });
 
     test('sorting', () {
@@ -104,7 +104,7 @@ void main() {
       expect(json['properties']['description'], 'Vancouver, CA');
       expect(json['properties']['visited by'], 'Andrea & Brett');
       expect(json['properties']['marker-symbol'], 'building');
-      expect(json['properties']['marker-color'], '0E0');
+      expect(json['properties']['marker-color'], '#00EE00');
     });
   });
 
@@ -204,11 +204,11 @@ void main() {
         var result = new TripsHistory.fromJson(data);
         var people = result.people;
         expect(people, contains('Andrea'));
-        expect(people['Andrea'].colour, 'EE0');
+        expect(people['Andrea'].colour, '#EEEE00');
         expect(people, contains('Brett'));
-        expect(people['Brett'].colour, '00e');
+        expect(people['Brett'].colour, '#0000EE');
         expect(people, contains('Andrea & Brett'));
-        expect(people['Andrea & Brett'].colour, '#0E0');
+        expect(people['Andrea & Brett'].colour, '#00EE00');
       });
 
       test('cities', () {
@@ -227,7 +227,7 @@ void main() {
         expect(city.latitude, -1.0);
         var person = city.visitedBy;
         expect(person.name, 'Andrea');
-        expect(person.colour, 'ace');
+        expect(person.colour, '#AACCEE');
       });
     });
 
@@ -244,8 +244,8 @@ void main() {
         tripsHistory.addPerson(new Person('Brett', '00e'));
 
         var result = jsonEncodeDecode(tripsHistory);
-        expect(result['properties']['people']['Andrea'], 'ee0');
-        expect(result['properties']['people']['Brett'], '00e');
+        expect(result['properties']['people']['Andrea'], '#EEEE00');
+        expect(result['properties']['people']['Brett'], '#0000EE');
       });
 
       test('cities', () {
