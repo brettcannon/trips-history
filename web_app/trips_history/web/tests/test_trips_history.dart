@@ -153,7 +153,7 @@ void main() {
 
     test('.toJson()', () {
       var trip = new Trip();
-      var description = trip.description = 'Some Trip: 2014-04';
+      var description = 'Some Trip: 2014-04';
       trip.name = 'Some Trip';
       trip.when = new DateTime(2014, 4);
       var city1 = new City('Vancouver', 'CA', longitude: 4.0, latitude: 3.0);

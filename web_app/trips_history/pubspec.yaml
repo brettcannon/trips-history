@@ -5,6 +5,7 @@ homepage: https://github.com/brettcannon/trips-history
 dependencies:
   angular: '>=0.10.0'
   browser: '>=0.10.0+2'
+  intl: '>=0.9.8 <0.10.0'
   unittest: '>=0.10.1+2'
 transformers:
 - angular

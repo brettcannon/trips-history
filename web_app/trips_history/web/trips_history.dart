@@ -9,6 +9,8 @@
 
 library trips_history;
 
+import 'package:intl/intl.dart';
+
 /**
  * Match a person(s) to a colour.
  *
@@ -89,7 +91,6 @@ class Person implements Comparable {
 class City implements Comparable {
   String locality;
   String country;
-  String name;
   double longitude;
   double latitude;
   Person visitedBy;
@@ -98,9 +99,9 @@ class City implements Comparable {
 
   City(this.locality, this.country,
        {this.longitude, this.latitude, this.visitedBy: null,
-        this.livedHere: false}) {
-    this.name = this.locality + ', ' + this.country;
-  }
+        this.livedHere: false});
+
+  String get name => "$locality, $country";
 
   /**
    * Sort cities by country, then city name.
@@ -141,7 +142,7 @@ class City implements Comparable {
     if (!properties.containsKey('description')) {
       throw new ArgumentError('Point is lacking a "description" property');
     }
-    name = properties['description'];
+    var name = properties['description'];
     var nameParts = name.split(',').map((e) => e.trim()).toList();
     if (nameParts.length != 2) {
       throw new ArgumentError(
@@ -197,13 +198,19 @@ class City implements Comparable {
  * A single trip.
  */
 class Trip implements Comparable {
-  String description;
   String name;
   DateTime when;
+  static var _formatYear = new NumberFormat("0000");
+  static var _formatMonth = new NumberFormat("00");
   Person who;
   List<City> visited = new List();
 
   Trip() {}
+
+  String _formatDate() =>
+      '${_formatYear.format(when.year)}-${_formatMonth.format(when.month)}';
+
+  String get description => '$name: ${_formatDate()}';
 
   /**
    * Sort trips by their date, then by their name.
@@ -235,7 +242,7 @@ class Trip implements Comparable {
     if (!properties.containsKey('description')) {
       throw new ArgumentError('LineString lacks a description');
     }
-    description = properties['description'];
+    var description = properties['description'];
 
     var nameParts = description.split(':').map((e) => e.trim()).toList();
     if (nameParts.length != 2) {
