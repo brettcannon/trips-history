@@ -200,8 +200,8 @@ class City implements Comparable {
 class Trip implements Comparable {
   String name;
   DateTime when;
-  static var _formatYear = new NumberFormat("0000");
-  static var _formatMonth = new NumberFormat("00");
+  final _formatYear = new NumberFormat("0000");
+  final _formatMonth = new NumberFormat("00");
   Person who;
   List<City> visited = new List();
 
