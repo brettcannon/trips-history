@@ -17,6 +17,14 @@ class TripsHistoryController {
   String cityLatitude;
   bool cityLivedIn;
   List<City> cities = new List();
+  // Trip
+  String tripName;
+  String tripYear;
+  String tripMonth;
+  String tripPerson;
+  String tripCity;
+  List<City> tripVisited = new List();
+  List<Trip> trips = new List();
 
   TripsHistoryController() {
     // TODO: remove example data.
@@ -33,13 +41,19 @@ class TripsHistoryController {
         longitude: -58.37723, latitude: -34.61315);
     cities.add(vancouver);
     cities.add(buenosAires);
+
+    var trip = new Trip();
+    trip.name = "Some trip";
+    trip.when = new DateTime(2014, 4);
+    trip.who = a;
+    trip.visited.add(vancouver);
+    trips.add(trip);
   }
 
   void addPerson() {
     var person = new Person(personName, personColour);
     people.add(person);
-    personName = '';
-    personColour = '';
+    personName = personColour = '';
   }
 
   void addCity() {
@@ -48,11 +62,29 @@ class TripsHistoryController {
         latitude: double.parse(cityLatitude),
         livedHere: cityLivedIn);
     cities.add(city);
-    cityName = '';
-    cityCountryCode = '';
-    cityLatitude = '';
-    cityLongitude = '';
+    cityName = cityCountryCode = cityLatitude = cityLongitude = '';
     cityLivedIn = false;
+  }
+
+  void appendCityToTrip() {
+    // TODO: handle case where previous city is selected again.
+    var city = cities.firstWhere((c) => c.name == tripCity);
+    tripVisited.add(city);
+    tripCity = '';
+  }
+
+  void addTrip() {
+    // TODO: handle case where no city has been saved.
+    var date = new DateTime(int.parse(tripYear), int.parse(tripMonth));
+    var person = people.firstWhere((p) => p.name == tripPerson);
+    var trip = new Trip();
+    trip.name = tripName;
+    trip.when = date;
+    trip.who = person;
+    trip.visited = tripVisited;
+    trips.add(trip);
+    tripName = tripYear = tripMonth = tripPerson = '';
+    tripVisited = new List();
   }
 }
 

@@ -13,3 +13,16 @@
 dd {
   margin-left: 1em;
 }
+
+#tripYear {
+  width: 4em;
+}
+
+#tripMonth {
+  width: 2em;
+}
+
+.tripVisitedBy {
+  color: gray;
+  size: small;
+}
