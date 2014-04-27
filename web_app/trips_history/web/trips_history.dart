@@ -94,7 +94,6 @@ class City implements Comparable {
   double longitude;
   double latitude;
   Person visitedBy;
-  Set<Trip> trips = new Set();
   bool livedHere = false;
 
   City(this.locality, this.country,
@@ -125,9 +124,6 @@ class City implements Comparable {
    *   + `description` for [name]; format expected to be "[locality], [country]"
    *   + `visited by` for [visitedBy]
    *   + `lived here` for [livedHere]
-   *
-   * What [trips] have led to visiting the [City] are calculated independently
-   * of the data used by [new City.fromJson].
    */
   City.fromJson(Map data, Map<String, Person> people) {
     if (!data['geometry'].containsKey('coordinates')) {
@@ -257,7 +253,6 @@ class Trip implements Comparable {
     for (var place in properties['visited']) {
       var city = cities[place];
       visited.add(city);
-      city.trips.add(this);
     }
   }
 

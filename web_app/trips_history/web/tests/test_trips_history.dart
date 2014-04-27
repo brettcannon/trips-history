@@ -145,10 +145,6 @@ void main() {
       expect(result.when, new DateTime(2014, 02));
       expect(result.who, people['Andrea']);
       expect(result.visited, [vancity, sf]);
-
-      var tripSet = new Set.from([result]);
-      expect(vancity.trips, tripSet);
-      expect(vancity.trips, tripSet);
     });
 
     test('.toJson()', () {
