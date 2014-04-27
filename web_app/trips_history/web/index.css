@@ -5,3 +5,11 @@
 #personColour {
   width: 6em;
 }
+
+#countryCode {
+  width: 4em;
+}
+
+dd {
+  margin-left: 1em;
+}

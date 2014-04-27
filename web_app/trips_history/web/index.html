@@ -31,11 +31,11 @@
           - Prevent deletion if the person is still referenced by a trip
         -->
         <form class="row form-inline">
-          <input type=text placeholder="Person's name(s)" ng-model="ctrl.personName">
+          <input type="text" placeholder="Person's name(s)" ng-model="ctrl.personName">
           <!-- Should be `type=color`, but AngularDart doesn't like that. -->
-          <input id="personColour" type=text placeholder="#000000"
+          <input id="personColour" type="text" placeholder="#000000"
               ng-model="ctrl.personColour">
-          <button class="btn btn-primary" value="add" ng-click="ctrl.addPerson()">Add</button>
+          <button class="btn btn-primary" ng-click="ctrl.addPerson()">Add</button>
         </form>
         <ul class="row list-inline">
           <li ng-repeat="person in ctrl.people | orderBy:''"
@@ -44,9 +44,65 @@
       </div>
       <div class="tab-pane" id="cities">
           <!-- XXX City
-            - Add a city
+            - Allow specifying the visitor?
             - Validate inputs (including checking for dupes)
           -->
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-xs-2">City name</label>
+              <div class="col-xs-3">
+                <input type="text" class="form-control" ng-model="ctrl.cityName">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="countryCode" class="control-label col-xs-2">Country code</label>
+              <div class="col-xs-1">
+               <input type="text" id="countryCode" class="form-control col-xs-1"
+                  ng-model="ctrl.cityCountryCode">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2">longitude</label>
+              <div class="col-xs-2">
+               <input type="text" class="form-control"
+                  ng-model="ctrl.cityLongitude">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-xs-2">latitude</label>
+              <div class="col-xs-2">
+                <input type="text" class="form-control"
+                    ng-model="ctrl.cityLatitude">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-offset-2 col-xs-10">
+                <label><input type="checkbox" ng-model="ctrl.cityLivedIn">
+                  Lived here
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-offset-2 col-xs-10">
+                <button class="btn btn-primary" ng-click="ctrl.addCity()">
+                  Add
+                </button>
+              </div>
+            </div>
+          </form>
+          <dl>
+            <div ng-repeat="city in ctrl.cities | orderBy:''">
+              <dt>
+                {{city.locality}}, {{city.country}}
+                <span ng-if="city.livedHere" class="glyphicon glyphicon-home"></span>
+              </dt>
+              <dd>(
+                <a href="http://www.openstreetmap.org/#map=11/{{city.latitude}}/{{city.longitude}}">
+                  {{city.longitude}}, {{city.latitude}}
+                </a>
+                )</dd>
+            </div>
+          </dl>
        </div>
        <div class="tab-pane" id="trips">
           <!-- XXX Trip
