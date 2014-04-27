@@ -8,31 +8,48 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="index.css">
   </head>
-  <body>
-    <h1>Trips History</h1>
-    <div trips-history ng-cloak>
-      <!-- XXX Person
-        - Validate inputs (including checking for dupes)
-        - Edit a person who already exists
-        - Prevent deletion if the person is still referenced by a trip
-      -->
-      <form>
-        <input type=text placeholder="Person's name" ng-model="ctrl.personName">
-        <input type=text placeholder="Colour (in hex)" ng-model="ctrl.personColour">
-        <button value="add" ng-click="ctrl.addPerson()">Add</button>
-      </form>
-      <ul ng-repeat="person in ctrl.people | orderBy:''">
-        <li style="color: {{person.colour}}">{{person.name}}
-      </ul>
-      <!-- XXX City
-        - Add a city
-        - Validate inputs (including checking for dupes)
-      -->
-      <!-- XXX Trip
-        - Add a trip (limit travelers to people, same for city)
-        - Try <input type=month>
-      -->
+  <body class="container">
+    <header class="row">
+      <h1>Trips History</h1>
+    </header>
+    <ul class="nav nav-tabs row">
+      <li class="active"><a href="#people" data-toggle="tab">People</a>
+      <li><a href="#cities" data-toggle="tab">Cities</a>
+      <li><a href="#trips" data-toggle="tab">Trips</a>
+    </ul>
+    <div class="tab-content" trips-history ng-cloak>
+      <div class="tab-pane active" id="people">
+        <!-- XXX Person
+          - Validate inputs (including checking for dupes)
+          - Edit a person who already exists
+          - Prevent deletion if the person is still referenced by a trip
+        -->
+        <form class="row form-inline">
+          <input type=text placeholder="Person's name(s)" ng-model="ctrl.personName">
+          <!-- Should be `type=color`, but AngularDart doesn't like that. -->
+          <input id="personColour" type=text placeholder="#000000"
+              ng-model="ctrl.personColour">
+          <button class="btn btn-primary" value="add" ng-click="ctrl.addPerson()">Add</button>
+        </form>
+        <ul class="row list-inline">
+          <li ng-repeat="person in ctrl.people | orderBy:''"
+              style="color: {{person.colour}}">{{person.name}}
+        </ul>
+      </div>
+      <div class="tab-pane" id="cities">
+          <!-- XXX City
+            - Add a city
+            - Validate inputs (including checking for dupes)
+          -->
+       </div>
+       <div class="tab-pane" id="trips">
+          <!-- XXX Trip
+            - Add a trip (limit travelers to people, same for city)
+            - Try <input type=month>
+          -->
+       </div>
     </div>
     <script src="packages/shadow_dom/shadow_dom.min.js"></script>
     <script type="application/dart" src="trips_ui.dart"></script>
