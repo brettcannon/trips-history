@@ -177,9 +177,13 @@ class City implements Comparable {
     var json = {'type': 'Feature'};
     var geometry = {'type': 'Point',
                     'coordinates': [longitude, latitude]};
-    var properties = {'description': name,
-                      'visited by': visitedBy.name,
-                      'marker-color': visitedBy.colour};
+    var properties = {'description': name};
+
+    if (visitedBy != null) {
+      properties['visited by'] = visitedBy.name;
+      properties['marker-color'] = visitedBy.colour;
+    }
+
     if (livedHere == true) {
       properties['lived here'] = true;
       properties['marker-symbol'] = 'building';

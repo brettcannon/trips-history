@@ -26,35 +26,13 @@ class TripsHistoryController {
   List<City> tripVisited = new List();
   List<Trip> trips = new List();
   // Import/Export
-  String importExportState = "Import";
+  static final importLabel = "Import";
+  static final exportLabel = "Export";
+  String importExportState = importLabel;
   String importExport;
 
-  TripsHistoryController() {
-    // TODO: remove example data.
-    var a = new Person('Andrea', '#EEEE00');
-    var b = new Person('Brett', '#0000EE');
-    var ab = new Person('Andrea & Brett', '#00EE00');
-    people.add(a);
-    people.add(b);
-    people.add(ab);
-
-    var vancouver = new City('Vancouver', 'CA',
-        longitude: -123.11934, latitude: 49.24966, livedHere:true);
-    var buenosAires = new City('Buenos Aires', 'AR',
-        longitude: -58.37723, latitude: -34.61315);
-    cities.add(vancouver);
-    cities.add(buenosAires);
-
-    var trip = new Trip();
-    trip.name = "Some trip";
-    trip.when = new DateTime(2014, 4);
-    trip.who = a;
-    trip.visited.add(vancouver);
-    trips.add(trip);
-  }
-
   void _nowExport() {
-    importExportState = "Export";
+    importExportState = exportLabel;
   }
 
   void addPerson() {
@@ -98,8 +76,15 @@ class TripsHistoryController {
   }
 
   void importOrExport() {
-    // TODO: export
-    // TODO: import
+    if (importExportState == exportLabel) {
+      importExport = encode(people, cities, trips);
+    } else {
+      var data = decode(importExport);
+      people.addAll(data['people']);
+      cities.addAll(data['cities']);
+      trips.addAll(data['trips']);
+      _nowExport();
+    }
   }
 }
 
