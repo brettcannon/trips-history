@@ -5,8 +5,6 @@ import 'package:unittest/vm_config.dart';
 
 import 'dart:convert';
 
-jsonEncodeDecode(thing) => JSON.decode(JSON.encode(thing));
-
 basicTripsHistory() => {'type': 'FeatureCollection', 'features': []};
 basicCity() => {'type': 'Feature', 'properties': {'description': 'Vancouver, CA'},
                 'geometry': {'type': 'Point', 'coordinates': [1.0, -1.0]}};
@@ -177,13 +175,13 @@ void main() {
     });
   });
 
-  group('TripsHistory', () {
-    group('.fromJSON()', () {
+  group('Encode/decode', () {
+    group('decode()', () {
       test('outermost type', () {
-        expect(() => new TripsHistory.fromJson({}), throwsArgumentError);
-        expect(() => new TripsHistory.fromJson({'type': 'Point'}),
+        expect(() => decode("{}"), throwsArgumentError);
+        expect(() => decode(JSON.encode({'type': 'Point'})),
                throwsArgumentError);
-        expect(() => new TripsHistory.fromJson(basicTripsHistory()),
+        expect(() => decode(JSON.encode(basicTripsHistory())),
                returnsNormally);
       });
 
@@ -197,8 +195,9 @@ void main() {
              }
         };
 
-        var result = new TripsHistory.fromJson(data);
-        var people = result.people;
+        var result = decode(JSON.encode(data));
+        var people = new Map.fromIterable(result['people'],
+            key: (p) => p.name, value: (p) => p);
         expect(people, contains('Andrea'));
         expect(people['Andrea'].colour, '#EEEE00');
         expect(people, contains('Brett'));
@@ -214,8 +213,8 @@ void main() {
         cityData['properties']['visited by'] = 'Andrea';
         data['features'].add(cityData);
 
-        var history = new TripsHistory.fromJson(data);
-        var city = history.cities['Vancouver, CA'];
+        var history = decode(JSON.encode(data));
+        var city = history['cities'].toList().first;
         expect(city.name, 'Vancouver, CA');
         expect(city.locality, 'Vancouver');
         expect(city.country, 'CA');
@@ -227,49 +226,48 @@ void main() {
       });
     });
 
-    group('.toJson()', () {
+    group('encode()', () {
       test('basics', () {
-        var tripsHistory = new TripsHistory();
-        var result = jsonEncodeDecode(tripsHistory);
+        var result = JSON.decode(encode([], [], []));
         expect(result['type'], 'FeatureCollection');
       });
 
       test('people', () {
-        var tripsHistory = new TripsHistory();
-        tripsHistory.addPerson(new Person('Andrea', 'ee0'));
-        tripsHistory.addPerson(new Person('Brett', '00e'));
+        var people = new Set();
+        people.add(new Person('Andrea', 'ee0'));
+        people.add(new Person('Brett', '00e'));
 
-        var result = jsonEncodeDecode(tripsHistory);
+        var result = JSON.decode(encode(people, [], []));
         expect(result['properties']['people']['Andrea'], '#EEEE00');
         expect(result['properties']['people']['Brett'], '#0000EE');
       });
 
       test('cities', () {
-        var tripsHistory = new TripsHistory();
         var city1 = new City('Vancouver', 'CA');
         var city2 = new City('San Francisco', 'US');
-        tripsHistory.cities['Vancouver, CA'] = city1;
-        tripsHistory.cities['San Francisco, US'] = city2;
+        city1.visitedBy = city2.visitedBy = new Person('Andrea', '000');
+        var cities = [city1, city2];
 
-        var json = tripsHistory.toJson();
+        var json = JSON.decode(encode([], cities, []));
         expect(json['features'].length, 2);
-        expect(json['features'][0], city1);
-        expect(json['features'][1], city2);
+        expect(json['features'][0], city1.toJson());
+        expect(json['features'][1], city2.toJson());
       });
 
       test('trips', () {
-        var tripsHistory = new TripsHistory();
         var trip1 = new Trip();
+        trip1.name = 'Trip 1';
         trip1.when = new DateTime(2014, 4, 23);
         var trip2 = new Trip();
+        trip2.name = 'Trip 2';
         trip2.when = new DateTime(2014, 4, 24);
-        tripsHistory.trips['trip 1'] = trip1;
-        tripsHistory.trips['trip 2'] = trip2;
+        trip1.who = trip2.who = new Person('Andrea', '000');
+        var trips = [trip1, trip2];
 
-        var json = tripsHistory.toJson();
+        var json = JSON.decode(encode([], [], trips));
         expect(json['features'].length, 2);
-        expect(json['features'][0], trip1);
-        expect(json['features'][1], trip2);
+        expect(json['features'][0], trip1.toJson());
+        expect(json['features'][1], trip2.toJson());
       });
     });
   });

@@ -9,6 +9,7 @@
 
 library trips_history;
 
+import 'dart:convert';
 import 'package:intl/intl.dart';
 
 /**
@@ -273,101 +274,89 @@ class Trip implements Comparable {
 }
 
 /**
- * The entire trips history for a person(s).
+ * Encode the various trip details into GeoJSON.
  */
-class TripsHistory {
-  Map<String, Person> people = new Map();
-  Map<String, City> cities = new Map();
-  Map<String, Trip> trips = new Map();
+String encode(Iterable<Person> people, Iterable<City> cities, Iterable<Trip> trips) {
+  var data = {'type': 'FeatureCollection', 'geometry': {},
+                  'properties': {'people': {}}, 'features': []};
 
-  TripsHistory();
+  var sortedPeople = people.toList();
+  sortedPeople.sort();
+  sortedPeople.forEach((person) {
+    data['properties']['people'][person.name] = person.colour;
+  });
 
-  /**
-   * Construct a trip history from GeoJSON data.
-   *
-   * Data is expected to be from a FeatureCollection where:
-   *
-   * + `properties` contains a `people` mapping of "<name>: <colour>"
-   * + `features` contains various Points and LineStrings representing
-   *   cities and trips, respectively
-   */
-  TripsHistory.fromJson(Map data) {
-    if (data['type'] != 'FeatureCollection') {
-      throw new ArgumentError('GeoJSON requires the outermost "type" to be '
-                              '"FeatureCollection, not ${data['type']}');
-    }
+  var sortedCities = cities.toList();
+  sortedCities.sort();
+  data['features'].addAll(sortedCities);
+  var sortedTrips = trips.toList();
+  sortedTrips.sort();
+  data['features'].addAll(sortedTrips);
 
-    if (data.containsKey('properties')) {
-      Map properties = data['properties'];
-      if (properties.containsKey('people')) {
-        properties['people'].forEach(
-            (key, value) => addPerson(new Person(key, value)));
-      }
-    }
+  return JSON.encode(data);
+}
 
-    if (!data.containsKey('features')) {
-      throw new ArgumentError('"features" section missing');
-    }
+/**
+ * Decode GeoJSON into a map of people, cities, and trips.
+ */
+Map<String, Set> decode(String jsonString) {
+  var data = JSON.decode(jsonString);
+  var people = new Map();
+  var cities = new Map();
+  var trips = new Map();
 
-    var points = new List();
-    var lineStrings = new List();
-    for (var feature in data['features']) {
-      if (!feature.containsKey('type')) {
-        throw new ArgumentError('Feature lacks a "type" value');
-      } else if (feature['type'] != 'Feature') {
-        throw new ArgumentError('expected a Feature, not ${feature["type"]}');
-      }
+  if (data['type'] != 'FeatureCollection') {
+    throw new ArgumentError('GeoJSON requires the outermost "type" to be '
+                            '"FeatureCollection, not ${data['type']}');
+  }
 
-      if (!feature.containsKey('geometry')) {
-        throw new ArgumentError('Feature must have a "geometry" key');
-      } else if (!feature.containsKey('properties')) {
-        throw new ArgumentError('Feature must have a "properties" key');
-      }
-
-      var geometry = feature['geometry'];
-      if (geometry['type'] != 'Point' && geometry['type'] != 'LineString') {
-        throw new ArgumentError(
-            'Feature should be a Point or LineString, not ${geometry["type"]}');
-      } else if (geometry['type'] == 'Point') {
-        points.add(feature);
-      } else {
-        lineStrings.add(feature);
-      }
-    }
-
-    for (var point in points) {
-      var city = new City.fromJson(point, people);
-      cities[city.name] = city;
-    }
-
-    for (var lineString in lineStrings) {
-      var trip = new Trip.fromJson(lineString, people, cities);
-      trips[trip.name]= trip;
+  if (data.containsKey('properties')) {
+    Map properties = data['properties'];
+    if (properties.containsKey('people')) {
+      properties['people'].forEach(
+          (key, value) => people[key] = new Person(key, value));
     }
   }
 
-  // For easy use in [List.map] and for testing purposes.
-  void addPerson(Person person) {
-    people[person.name] = person;
+  if (!data.containsKey('features')) {
+    throw new ArgumentError('"features" section missing');
   }
 
-  Map toJson() {
-    var data = {'type': 'FeatureCollection', 'geometry': {},
-                'properties': {'people': {}}, 'features': []};
+  var points = new List();
+  var lineStrings = new List();
+  for (var feature in data['features']) {
+    if (!feature.containsKey('type')) {
+      throw new ArgumentError('Feature lacks a "type" value');
+    } else if (feature['type'] != 'Feature') {
+      throw new ArgumentError('expected a Feature, not ${feature["type"]}');
+    }
 
-    var sortedPeople = people.values.toList();
-    sortedPeople.sort();
-    sortedPeople.forEach((person) {
-      data['properties']['people'][person.name] = person.colour;
-    });
+    if (!feature.containsKey('geometry')) {
+      throw new ArgumentError('Feature must have a "geometry" key');
+    } else if (!feature.containsKey('properties')) {
+      throw new ArgumentError('Feature must have a "properties" key');
+    }
 
-    var sortedCities = cities.values.toList();
-    sortedCities.sort();
-    data['features'].addAll(sortedCities);
-    var sortedTrips = trips.values.toList();
-    sortedTrips.sort();
-    data['features'].addAll(sortedTrips);
-
-    return data;
+    var geometry = feature['geometry'];
+    if (geometry['type'] != 'Point' && geometry['type'] != 'LineString') {
+      throw new ArgumentError(
+          'Feature should be a Point or LineString, not ${geometry["type"]}');
+    } else if (geometry['type'] == 'Point') {
+      points.add(feature);
+    } else {
+      lineStrings.add(feature);
+    }
   }
+
+  for (var point in points) {
+    var city = new City.fromJson(point, people);
+    cities[city.name] = city;
+  }
+
+  for (var lineString in lineStrings) {
+    var trip = new Trip.fromJson(lineString, people, cities);
+    trips[trip.name]= trip;
+  }
+
+  return {'people': people.values.toSet(), 'cities': cities.values.toSet(), 'trips': trips.values.toSet()};
 }
