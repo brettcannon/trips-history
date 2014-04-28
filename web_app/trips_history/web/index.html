@@ -10,24 +10,8 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="index.css">
   </head>
-  <body class="container">
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-          </button>
-          <a class="navbar-brand" href="#">Trips History</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#">Import</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <body class="container" trips-history>
+    <h1>Trips History</h1>
     <!-- XXX
       - Save to JSON
       - Load from JSON
@@ -36,8 +20,9 @@
       <li class="active"><a href="#people" data-toggle="tab">People</a>
       <li><a href="#cities" data-toggle="tab">Cities</a>
       <li><a href="#trips" data-toggle="tab">Trips</a>
+      <li><a href="#output" data-toggle="tab" ng-cloak>{{ctrl.importExportState}}</a>
     </ul>
-    <div class="tab-content" trips-history ng-cloak>
+    <div class="tab-content">
       <div class="tab-pane active" id="people">
         <!-- XXX Person
           - Validate inputs (including checking for dupes)
@@ -51,7 +36,7 @@
               ng-model="ctrl.personColour">
           <button class="btn btn-primary" ng-click="ctrl.addPerson()">Add</button>
         </form>
-        <ul class="row list-inline">
+        <ul class="row list-inline" ng-cloak>
           <li ng-repeat="person in ctrl.people | orderBy:''"
               style="color: {{person.colour}}">{{person.name}}
         </ul>
@@ -104,7 +89,7 @@
               </div>
             </div>
           </form>
-          <dl>
+          <dl ng-cloak>
             <div ng-repeat="city in ctrl.cities | orderBy:''">
               <dt>
                 {{city.locality}}, {{city.country}}
@@ -143,7 +128,7 @@
               <label class="control-label col-xs-1">Traveler</label>
               <div class="col-xs-11">
                 <select class="form-control" ng-model="ctrl.tripPerson">
-                  <option>
+                  <option ng-cloak>
                   <option ng-repeat="person in ctrl.people | orderBy: ''">{{person.name}}</option>
                 </select>
               </div>
@@ -152,14 +137,14 @@
               <button class="btn col-xs-1" ng-click="ctrl.appendCityToTrip()">Add city</button>
               <div class="col-xs-11">
                 <select class="form-control" ng-model="ctrl.tripCity">
-                  <option>
+                  <option ng-cloak>
                   <option ng-repeat="city in ctrl.cities | orderBy: ''">
                     {{city.locality}}, {{city.country}}
                   </option>
                 </select>
               </div>
             </div>
-            <ol>
+            <ol ng-cloak>
               <li ng-repeat="city in ctrl.tripVisited">{{city.name}}
             </ol>
             <div class="form-group">
@@ -168,7 +153,7 @@
               </div>
             </div>
           </form>
-          <ul class="list-group">
+          <ul class="list-group" ng-cloak>
             <div ng-repeat="trip in ctrl.trips | orderBy:''" class="list-group-item">
               <h4>{{trip.description}}</h4>
               <p class="tripVisitedBy">{{trip.who.name}}</p>
@@ -177,6 +162,16 @@
               </ul>
             </div>
           </ul>
+       </div>
+       <div class="tab-pane" id="output">
+         <div class="row">
+           <button id="importExportButton" class="btn btn-primary"
+              ng-click="ctrl.importOrExport()">Update</button>
+         </div>
+         <div class="row">
+           <textarea id="importExportArea" class="row col-xs-12"
+              ng-model="ctrl.importExport"></textarea>
+         </div>
        </div>
     </div>
     <script src="packages/shadow_dom/shadow_dom.min.js"></script>

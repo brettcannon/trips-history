@@ -1,3 +1,7 @@
+[ng-cloak], .ng-cloak {
+   display: none !important;
+}
+
 .nav-tabs {
   margin-bottom: 1em;
 }
@@ -25,4 +29,12 @@ dd {
 .tripVisitedBy {
   color: gray;
   size: small;
+}
+
+#importExportArea {
+  height: 20em;
+}
+
+#importExportButton {
+  margin-bottom: 1em;
 }

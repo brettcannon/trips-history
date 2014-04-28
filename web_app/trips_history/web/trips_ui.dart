@@ -25,6 +25,9 @@ class TripsHistoryController {
   String tripCity;
   List<City> tripVisited = new List();
   List<Trip> trips = new List();
+  // Import/Export
+  String importExportState = "Import";
+  String importExport;
 
   TripsHistoryController() {
     // TODO: remove example data.
@@ -50,10 +53,15 @@ class TripsHistoryController {
     trips.add(trip);
   }
 
+  void _nowExport() {
+    importExportState = "Export";
+  }
+
   void addPerson() {
     var person = new Person(personName, personColour);
     people.add(person);
     personName = personColour = '';
+    _nowExport();
   }
 
   void addCity() {
@@ -64,6 +72,7 @@ class TripsHistoryController {
     cities.add(city);
     cityName = cityCountryCode = cityLatitude = cityLongitude = '';
     cityLivedIn = false;
+    _nowExport();
   }
 
   void appendCityToTrip() {
@@ -85,6 +94,12 @@ class TripsHistoryController {
     trips.add(trip);
     tripName = tripYear = tripMonth = tripPerson = '';
     tripVisited = new List();
+    _nowExport();
+  }
+
+  void importOrExport() {
+    // TODO: export
+    // TODO: import
   }
 }
 
