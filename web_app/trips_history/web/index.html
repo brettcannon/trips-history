@@ -111,13 +111,13 @@
           -->
           <form class="form-horizontal">
             <div class="form-group">
-              <label class="control-label col-xs-1" >Name</label>
-              <div class="col-xs-11">
+              <label class="control-label col-xs-2">Name</label>
+              <div class="col-xs-10">
                 <input type="text" class="form-control" ng-model="ctrl.tripName">
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-xs-1">When</label>
+              <label class="control-label col-xs-2">When</label>
               <div class="col-xs-4">
                 <input type="text" id="tripYear" placeholder="YYYY" ng-model="ctrl.tripYear">
                 -
@@ -125,8 +125,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-xs-1">Traveler</label>
-              <div class="col-xs-11">
+              <label class="control-label col-xs-2">Traveler</label>
+              <div class="col-xs-10">
                 <select class="form-control" ng-model="ctrl.tripPerson">
                   <option ng-cloak>
                   <option ng-repeat="person in ctrl.people | orderBy: ''">{{person.name}}</option>
@@ -134,8 +134,8 @@
               </div>
             </div>
             <div class="form-group">
-              <button class="btn col-xs-1" ng-click="ctrl.appendCityToTrip()">Add city</button>
-              <div class="col-xs-11">
+              <button class="btn col-xs-2" ng-click="ctrl.appendCityToTrip()">Add city</button>
+              <div class="col-xs-10">
                 <select class="form-control" ng-model="ctrl.tripCity">
                   <option ng-cloak>
                   <option ng-repeat="city in ctrl.cities | orderBy: ''">
