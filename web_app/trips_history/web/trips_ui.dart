@@ -16,12 +16,14 @@ class TripsHistoryController {
   String cityLongitude;
   String cityLatitude;
   bool cityLivedIn;
+  List<City> citiesCalledHome = new List();
   List<City> cities = new List();
   // Trip
   String tripName;
   String tripYear;
   String tripMonth;
   String tripPerson;
+  String tripStartingPoint;
   String tripCity;
   List<City> tripVisited = new List();
   List<Trip> trips = new List();
@@ -48,6 +50,9 @@ class TripsHistoryController {
         latitude: double.parse(cityLatitude),
         livedHere: cityLivedIn);
     cities.add(city);
+    if (cityLivedIn == true) {
+      citiesCalledHome.add(city);
+    }
     cityName = cityCountryCode = cityLatitude = cityLongitude = '';
     cityLivedIn = false;
     _nowExport();
@@ -68,6 +73,10 @@ class TripsHistoryController {
     trip.name = tripName;
     trip.when = date;
     trip.who = person;
+    if (tripStartingPoint != '') {
+      var startingPoint = cities.firstWhere((c) => c.name == tripStartingPoint);
+      tripVisited.insert(0, startingPoint);
+    }
     trip.visited = tripVisited;
     trips.add(trip);
     tripName = tripYear = tripMonth = tripPerson = '';
@@ -82,6 +91,7 @@ class TripsHistoryController {
       var data = decode(importExport);
       people.addAll(data['people']);
       cities.addAll(data['cities']);
+      citiesCalledHome = cities.where((c) => c.livedHere == true).toList();
       trips.addAll(data['trips']);
       _nowExport();
     }

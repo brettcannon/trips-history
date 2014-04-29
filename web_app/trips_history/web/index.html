@@ -128,17 +128,31 @@
               <label class="control-label col-xs-2">Traveler</label>
               <div class="col-xs-10">
                 <select class="form-control" ng-model="ctrl.tripPerson">
-                  <option ng-cloak>
-                  <option ng-repeat="person in ctrl.people | orderBy: ''">{{person.name}}</option>
+                  <option>
+                  <option ng-repeat="person in ctrl.people | orderBy: ''" ng-cloak>
+                    {{person.name}}
+                  </option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <button class="btn col-xs-2" ng-click="ctrl.appendCityToTrip()">Add city</button>
+              <label class="control-label col-xs-2">Home</label>
+              <div class="col-xs-10">
+                <select class="form-control" ng-model="ctrl.tripStartingPoint">
+                  <option ng-repeat="city in ctrl.citiesCalledHome | orderBy:''" ng-cloak>
+                    {{city.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn col-xs-2" ng-click="ctrl.appendCityToTrip()">
+                Add city
+              </button>
               <div class="col-xs-10">
                 <select class="form-control" ng-model="ctrl.tripCity">
-                  <option ng-cloak>
-                  <option ng-repeat="city in ctrl.cities | orderBy: ''">
+                  <option>
+                  <option ng-repeat="city in ctrl.cities | orderBy: ''" ng-cloak>
                     {{city.locality}}, {{city.country}}
                   </option>
                 </select>
