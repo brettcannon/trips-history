@@ -90,6 +90,8 @@ class Person implements Comparable {
  * A city that has been visited.
  */
 class City implements Comparable {
+  // TODO: marker-size
+  // TODO: trips/visits
   String locality;
   String country;
   double longitude;
@@ -139,14 +141,16 @@ class City implements Comparable {
     if (!properties.containsKey('description')) {
       throw new ArgumentError('Point is lacking a "description" property');
     }
+
+    // Need to watch out for cases like "Washington, DC, US".
     var name = properties['description'];
-    var nameParts = name.split(',').map((e) => e.trim()).toList();
-    if (nameParts.length != 2) {
+    var comma_index = name.lastIndexOf(',');
+    if (comma_index == -1) {
       throw new ArgumentError(
           'name should be in the form of "<locality>, <country>"');
     }
-    locality = nameParts[0];
-    country = nameParts[1].toUpperCase();
+    locality = name.substring(0, comma_index).trim();
+    country = name.substring(comma_index+1).trim().toUpperCase();
     if (country.length != 2) {
       throw new ArgumentError('country should be in ISO 3166-1 alpha-2 format');
     }
@@ -258,6 +262,7 @@ class Trip implements Comparable {
     for (var place in properties['visited']) {
       var city = cities[place];
       visited.add(city);
+      // TODO: update city as visited by whom.
     }
   }
 
