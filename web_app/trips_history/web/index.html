@@ -139,6 +139,7 @@
               <label class="control-label col-xs-2">Home</label>
               <div class="col-xs-10">
                 <select class="form-control" ng-model="ctrl.tripStartingPoint">
+                  <option>
                   <option ng-repeat="city in ctrl.citiesCalledHome | orderBy:''" ng-cloak>
                     {{city.name}}
                   </option>
