@@ -270,6 +270,8 @@ class Trip implements Comparable {
                 'properties': {}};
     json['properties']['description'] = description;
     json['properties']['visited by'] = who.name;
+    json['properties']['stroke-opacity'] = '0.5';
+    json['properties']['stroke'] = who.colour;
     json['properties']['visited'] = visited.map((c) => c.name).toList();
     if (visited.length == 1) {
       var coordinates = [visited.first.longitude, visited.first.latitude];
