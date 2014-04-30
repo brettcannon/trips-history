@@ -90,8 +90,6 @@ class Person implements Comparable {
  * A city that has been visited.
  */
 class City implements Comparable {
-  // TODO: marker-size
-  // TODO: trips/visits
   String locality;
   String country;
   double longitude;
@@ -181,7 +179,7 @@ class City implements Comparable {
     var json = {'type': 'Feature'};
     var geometry = {'type': 'Point',
                     'coordinates': [longitude, latitude]};
-    var properties = {'description': name};
+    var properties = {'description': name, 'marker-size': 'small'};
 
     if (visitedBy != null) {
       properties['visited by'] = visitedBy.name;
@@ -191,6 +189,7 @@ class City implements Comparable {
     if (livedHere == true) {
       properties['lived here'] = true;
       properties['marker-symbol'] = 'building';
+      properties['marker-size'] = 'medium';
     }
 
     json['geometry'] = geometry;
