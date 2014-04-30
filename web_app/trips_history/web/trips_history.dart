@@ -364,7 +364,7 @@ Map<String, Set> decode(String jsonString) {
 
   for (var lineString in lineStrings) {
     var trip = new Trip.fromJson(lineString, people, cities);
-    trips[trip.name]= trip;
+    trips[trip.description]= trip;
   }
 
   return {'people': people.values.toSet(), 'cities': cities.values.toSet(), 'trips': trips.values.toSet()};
