@@ -73,7 +73,7 @@ class TripsHistoryController {
     trip.name = tripName;
     trip.when = date;
     trip.who = person;
-    if (tripStartingPoint != '') {
+    if (tripStartingPoint != '' && tripStartingPoint != null) {
       var startingPoint = cities.firstWhere((c) => c.name == tripStartingPoint);
       tripVisited.insert(0, startingPoint);
     }
