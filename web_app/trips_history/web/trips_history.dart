@@ -261,7 +261,7 @@ class Trip implements Comparable {
     for (var place in properties['visited']) {
       var city = cities[place];
       visited.add(city);
-      // TODO: update city as visited by whom.
+      city.setVisitor(who);
     }
   }
 
