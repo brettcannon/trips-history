@@ -3,6 +3,8 @@ Various bits of code to help maintain a [GeoJSON](http://geojson.org/) record of
 All part of a [blog
 post](http://nothingbutsnark.svbtle.com/my-impressions-of-scala).
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 ## Fixup/tweak GeoJSON `properties` metadata
 `fixup_trips.py` helps with changing GeoJSON 'properties' metadata. It's mostly
 meant to clean up the output from the trips DSL (mentioned below).
